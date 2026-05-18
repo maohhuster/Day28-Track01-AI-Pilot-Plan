@@ -21,7 +21,7 @@ nop-cuoi: Không — file trung gian
    - Phase: tuần 1 baseline + mapping; tuần 2 chạy batch nhỏ + coach review; tuần 3 gửi rộng hơn + đo adoption/quality.
 
 4. **Người**:
-   - Nhóm làm: 3 thành viên TBD.
+   - Nhóm làm: Nguyễn Đức Mạnh (2A202600151) phụ trách Frame; Hoàng Quang Thắng (2A202600069) phụ trách Solution; Lê Quang Minh (2A202600381) phụ trách Pilot Plan + pitch.
    - Review output rủi ro cao: coach Track Product.
    - Quyết approve/dừng: instructor/owner chương trình, dựa trên metric và exit criteria.
 

@@ -13,11 +13,11 @@ nop-cuoi: Có — bản nộp cuối lab
 
 | # | Slide | Lấy từ | Nội dung 1–2 gạch đầu dòng | Ai nói |
 |---|---|---|---|---|
-| 1 | Problem & user | 01-frame/3-FINAL | Sau D28, học viên không biết chính xác cần ôn gì trước 6 tuần thực chiến; coach khó cá nhân hóa thủ công cho ~80 học viên Product / ~500 toàn khóa. Baseline cần đo: % học viên nêu rõ 3 việc cần ôn, giả định hiện chỉ 30-40%. | TBD |
-| 2 | Breakdown & Quick Win | 01-frame/1,2 | Không build toàn bộ Learning OS. Chọn Quick Win: checklist/lộ trình bù cá nhân sau D28, tối đa 3 action có nguồn; bỏ peer matching, tracking dài hạn, quiz adaptive vì quá rộng/rủi ro cao. | TBD |
-| 3 | Solution + bản vẽ trực quan | 02-solution/2-FINAL | Chọn Boost: LLM/API sẵn + rubric/concept map/tài liệu AI20k + coach review. Flow: bài nộp + self-assessment -> AI draft -> coach review low-confidence/sample -> checklist gửi học viên. | TBD |
-| 4 | AI Pilot Plan | 03-pilot-plan/1 | Pilot 3 tuần: tuần 1 baseline/mapping, tuần 2 batch 15-20 + coach review, tuần 3 gửi cohort và đo adoption. Budget nhỏ: API 2-5 USD/tuần giả định, coach review 2 giờ, maintenance mapping 1 giờ/tuần. | TBD |
-| 5 | Metric · exit criteria · lời xin | 03-pilot-plan/1 | Xin approve pilot 3 tuần cho 30-80 học viên, quyền dùng bài nộp D28/self-assessment và 2 giờ coach review. Đổi lại nhóm hứa giao evidence: >=80% checklist pass coach review, >=60% mở checklist, >=40% tick 1 action, và dừng nếu có lỗi privacy/citation nghiêm trọng. | TBD |
+| 1 | Problem & user | 01-frame/3-FINAL | Sau D28, học viên không biết chính xác cần ôn gì trước 6 tuần thực chiến; coach khó cá nhân hóa thủ công cho ~80 học viên Product / ~500 toàn khóa. Baseline cần đo: % học viên nêu rõ 3 việc cần ôn, giả định hiện chỉ 30-40%. | Nguyễn Đức Mạnh |
+| 2 | Breakdown & Quick Win | 01-frame/1,2 | Không build toàn bộ Learning OS. Chọn Quick Win: checklist/lộ trình bù cá nhân sau D28, tối đa 3 action có nguồn; bỏ peer matching, tracking dài hạn, quiz adaptive vì quá rộng/rủi ro cao. | Nguyễn Đức Mạnh |
+| 3 | Solution + bản vẽ trực quan | 02-solution/2-FINAL | Chọn Boost: LLM/API sẵn + rubric/concept map/tài liệu AI20k + coach review. Flow: bài nộp + self-assessment -> AI draft -> coach review low-confidence/sample -> checklist gửi học viên. | Hoàng Quang Thắng |
+| 4 | AI Pilot Plan | 03-pilot-plan/1 | Pilot 3 tuần: tuần 1 baseline/mapping, tuần 2 batch 15-20 + coach review, tuần 3 gửi cohort và đo adoption. Budget nhỏ: API 2-5 USD/tuần giả định, coach review 2 giờ, maintenance mapping 1 giờ/tuần. | Lê Quang Minh |
+| 5 | Metric · exit criteria · lời xin | 03-pilot-plan/1 | Xin approve pilot 3 tuần cho 30-80 học viên, quyền dùng bài nộp D28/self-assessment và 2 giờ coach review. Đổi lại nhóm hứa giao evidence: >=80% checklist pass coach review, >=60% mở checklist, >=40% tick 1 action, và dừng nếu có lỗi privacy/citation nghiêm trọng. | Lê Quang Minh |
 
 ## Phần B — Chuẩn bị 3 câu phản biện
 
@@ -39,7 +39,7 @@ nop-cuoi: Có — bản nộp cuối lab
 
 | Hạng mục | Xong? |
 |---|---|
-| 5 slide, mỗi slide 1 thông điệp, đã phân ai nói slide nào | X (người nói TBD) |
+| 5 slide, mỗi slide 1 thông điệp, đã phân ai nói slide nào | X |
 | Slide 5 có lời xin rõ ràng | X |
 | Có câu trả lời sẵn cho cả 3 câu phản biện | X |
 | AI Support Log điền đủ 3 dòng | X |

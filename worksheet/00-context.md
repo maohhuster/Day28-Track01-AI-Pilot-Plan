@@ -41,4 +41,4 @@ Hệ thống cá nhân hóa lộ trình học cho từng học viên dựa trên
 
 - Phạm vi nhóm chọn: không xây toàn bộ Learning OS; pilot chỉ tạo **checklist/lộ trình bù cá nhân sau D28** cho một nhóm học viên trước giai đoạn 6 tuần thực chiến.
 - Dữ liệu lab dùng: bài nộp D28, self-assessment 5 câu, tiến độ LMS, điểm quiz/rubric nếu có. Số liệu trong bài là giả định để lập kế hoạch, cần xác nhận bằng baseline tuần 1.
-- Thành viên và vai trò nhóm sẽ cập nhật sau.
+- Thành viên nhóm: Nguyễn Đức Mạnh (2A202600151) phụ trách Frame; Hoàng Quang Thắng (2A202600069) phụ trách Solution; Lê Quang Minh (2A202600381) phụ trách Pilot Plan + pitch.

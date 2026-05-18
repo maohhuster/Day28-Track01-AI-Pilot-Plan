@@ -1,8 +1,10 @@
-# Day 28 — Nhóm TBD
+# Day 28 — Nhóm Track 01
 
 ## Thành viên
 
-- TBD · TBD · TBD
+- Nguyễn Đức Mạnh — 2A202600151 — phụ trách Phase 1: Frame
+- Hoàng Quang Thắng — 2A202600069 — phụ trách Phase 2: Solution + bản vẽ trực quan
+- Lê Quang Minh — 2A202600381 — phụ trách Phase 3: AI Pilot Plan + pitch
 - Track: 01 — Personalized Learning Path / Lộ trình học cá nhân hóa
 
 ## Đề tài
@@ -17,4 +19,4 @@ Pilot **AI Personalized Learning Path**: sau Day 28, hệ thống tạo checklis
 
 ## Ghi chú
 
-Thành viên, vai trò cụ thể và repo public của nhóm sẽ cập nhật sau.
+Repo public hiện tại: https://github.com/maohhuster/Day28-Track01-AI-Pilot-Plan
