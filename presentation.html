@@ -7,8 +7,8 @@
   <style>
     :root {
       --ink: #172033;
-      --muted: #657084;
-      --line: #dbe2ef;
+      --muted: #667085;
+      --line: #d7deea;
       --paper: #fbfcff;
       --panel: #ffffff;
       --blue: #2563eb;
@@ -16,7 +16,11 @@
       --green: #2f9e44;
       --amber: #c77700;
       --red: #c92a2a;
-      --shadow: 0 22px 60px rgba(19, 31, 53, .13);
+      --soft-blue: #eef4ff;
+      --soft-teal: #e9f7f7;
+      --soft-amber: #fff7e6;
+      --soft-green: #effaf2;
+      --shadow: 0 18px 48px rgba(19, 31, 53, .10);
       --radius: 8px;
     }
 
@@ -24,7 +28,10 @@
       box-sizing: border-box;
     }
 
-    html,
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-height: 100%;
@@ -34,217 +41,206 @@
       letter-spacing: 0;
     }
 
-    body {
-      overflow: hidden;
+    a {
+      color: inherit;
     }
 
-    .deck {
-      width: 100vw;
-      height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
     }
 
-    .slide {
-      display: none;
-      width: min(1280px, 100%);
-      height: min(720px, calc(100vh - 96px));
-      min-height: 560px;
+    .hero,
+    section,
+    .footer-note {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
     }
 
-    .slide.active {
+    .hero {
+      min-height: 88vh;
       display: grid;
-      animation: fadeIn .18s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: .35; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .frame {
-      height: 100%;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      padding: 34px 42px 28px;
-      gap: 22px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      align-items: flex-start;
-      border-top: 5px solid var(--blue);
-      padding-top: 18px;
+      align-content: center;
+      gap: 32px;
+      padding: clamp(32px, 6vw, 72px);
+      border-top: 7px solid var(--blue);
     }
 
     .kicker {
+      margin: 0 0 10px;
       color: var(--blue);
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 850;
       text-transform: uppercase;
       letter-spacing: .08em;
-      margin: 0 0 8px;
     }
 
     h1,
-    h2 {
+    h2,
+    h3 {
       margin: 0;
       letter-spacing: 0;
-      line-height: 1.05;
+      line-height: 1.08;
     }
 
     h1 {
-      max-width: 850px;
-      font-size: clamp(44px, 6vw, 76px);
-      font-weight: 850;
+      max-width: 920px;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 880;
     }
 
     h2 {
-      font-size: clamp(34px, 4.7vw, 54px);
-      font-weight: 840;
+      font-size: clamp(34px, 4.4vw, 56px);
+      font-weight: 850;
     }
 
     h3 {
-      margin: 0 0 10px;
-      font-size: 20px;
-      line-height: 1.2;
+      font-size: 21px;
+      font-weight: 820;
     }
 
     p {
       margin: 0;
-      font-size: 22px;
-      line-height: 1.42;
+      font-size: 21px;
+      line-height: 1.46;
     }
 
     .subtitle {
-      max-width: 850px;
+      max-width: 880px;
       color: var(--muted);
-      font-size: 26px;
-      line-height: 1.35;
+      font-size: clamp(22px, 2.5vw, 30px);
+      line-height: 1.36;
     }
 
-    .slide-number {
-      min-width: 58px;
-      height: 58px;
-      border: 2px solid var(--line);
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: var(--blue);
-      font-size: 20px;
-      font-weight: 850;
-      background: #fff;
-    }
-
-    main {
-      display: grid;
-      align-content: center;
-      gap: 22px;
-      min-height: 0;
-    }
-
-    footer {
+    .speaker-bar {
       display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .speaker-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid #bed0f8;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: #1749af;
       font-size: 15px;
-      border-top: 1px solid var(--line);
-      padding-top: 14px;
+      font-weight: 800;
     }
 
-    .speaker {
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 14px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 28px rgba(19, 31, 53, .08);
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
       color: var(--ink);
-      font-weight: 750;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 760;
     }
 
-    .team {
+    nav a:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    section {
+      margin-top: 18px;
+      padding: clamp(28px, 4.2vw, 48px);
+      scroll-margin-top: 82px;
+    }
+
+    .section-head {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 12px;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .member,
+    .lead {
+      max-width: 920px;
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .metrics,
+    .qa-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-3,
+    .qa-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .metrics {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
     .card,
+    .stat,
+    .flow-panel,
+    .week,
     .metric,
-    .step,
-    .callout,
-    .ask-box {
+    .ask-box,
+    .talking-point {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
     }
 
-    .member {
-      padding: 18px;
-      min-height: 112px;
-    }
-
-    .member strong {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
-
-    .member span {
-      display: block;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.35;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
     .card {
+      min-height: 160px;
       padding: 20px;
-      min-height: 150px;
       display: grid;
       gap: 10px;
       align-content: start;
     }
 
-    .card strong,
-    .step strong,
-    .metric strong {
-      display: block;
-      font-size: 18px;
-      line-height: 1.25;
-    }
-
     .card p,
-    .step p,
-    .metric p {
+    .week li,
+    .ask-box li,
+    .talking-point li,
+    .flow-panel li {
       color: var(--muted);
       font-size: 17px;
-      line-height: 1.38;
+      line-height: 1.44;
     }
 
     .accent-blue {
@@ -263,95 +259,116 @@
       border-top: 4px solid var(--amber);
     }
 
-    .number-stat {
+    .stat-row {
       display: grid;
-      gap: 10px;
-      padding: 24px;
-      background: #f5f8ff;
-      border: 1px solid #cdd9f7;
-      border-radius: var(--radius);
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
     }
 
-    .number-stat .big {
-      font-size: clamp(44px, 5vw, 64px);
-      line-height: 1;
-      font-weight: 880;
+    .stat {
+      padding: 22px;
+      background: var(--soft-blue);
+      border-color: #c7d7fb;
+    }
+
+    .stat strong {
+      display: block;
       color: var(--blue);
+      font-size: clamp(38px, 4.8vw, 62px);
+      line-height: 1;
+      margin-bottom: 8px;
     }
 
-    .number-stat span {
+    .stat span {
       color: var(--muted);
       font-size: 17px;
+      line-height: 1.38;
+    }
+
+    .score-table,
+    .plain-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .score-table th,
+    .score-table td,
+    .plain-table th,
+    .plain-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 15px;
       line-height: 1.35;
+      vertical-align: top;
     }
 
-    .decision {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      align-items: stretch;
+    .score-table th,
+    .plain-table th {
+      color: var(--muted);
+      background: #f5f7fb;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
     }
 
-    .step {
-      padding: 16px;
-      position: relative;
-      min-height: 145px;
+    .score-table td:not(:first-child) {
+      text-align: center;
+      font-weight: 760;
     }
 
-    .step .tag {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      background: var(--blue);
-      font-weight: 850;
-      margin-bottom: 12px;
+    .score-table tr:last-child td,
+    .plain-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .chosen {
+      background: #f1fbf4;
+    }
+
+    .chosen td:first-child {
+      border-left: 4px solid var(--green);
+      font-weight: 820;
     }
 
     .flow {
       display: grid;
-      grid-template-columns: .9fr .15fr 1fr .15fr .9fr;
+      grid-template-columns: .92fr .14fr 1fr .14fr .92fr;
       gap: 10px;
-      align-items: center;
+      align-items: stretch;
     }
 
     .flow-panel {
-      min-height: 320px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: 18px;
+      padding: 20px;
       display: grid;
+      align-content: start;
       gap: 12px;
-      align-content: center;
+      min-height: 300px;
     }
 
     .flow-panel h3 {
       color: var(--blue);
     }
 
-    .flow-list {
-      display: grid;
-      gap: 9px;
-    }
-
-    .pill {
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: #f4f7fb;
-      border: 1px solid var(--line);
-      color: var(--ink);
-      font-size: 15px;
-      font-weight: 680;
+    .flow-panel ul,
+    .week ul,
+    .ask-box ul,
+    .talking-point ul {
+      margin: 0;
+      padding-left: 20px;
     }
 
     .arrow {
+      align-self: center;
       height: 3px;
       background: var(--blue);
-      position: relative;
       border-radius: 999px;
+      position: relative;
     }
 
     .arrow::after {
@@ -366,595 +383,593 @@
       transform: translateY(-50%) rotate(45deg);
     }
 
+    .example {
+      margin-top: 16px;
+      padding: 20px;
+      border: 1px solid #c9dfd9;
+      border-radius: var(--radius);
+      background: var(--soft-teal);
+    }
+
+    .example h3 {
+      color: #087275;
+      margin-bottom: 10px;
+    }
+
+    .example ol {
+      margin: 0;
+      padding-left: 24px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
     .timeline {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      align-items: stretch;
+      gap: 16px;
     }
 
     .week {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      min-height: 230px;
+      padding: 20px;
+      min-height: 238px;
       display: grid;
       grid-template-rows: auto auto 1fr;
       gap: 12px;
     }
 
-    .week .label {
+    .label {
       width: fit-content;
       padding: 7px 10px;
       border-radius: 999px;
-      background: #eaf1ff;
+      background: var(--soft-blue);
       color: var(--blue);
       font-size: 13px;
       font-weight: 850;
       text-transform: uppercase;
     }
 
-    .week ul,
-    .ask-box ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.42;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
     .metric {
       min-height: 170px;
       padding: 18px;
       display: grid;
-      gap: 9px;
       align-content: start;
+      gap: 9px;
     }
 
-    .metric .target {
+    .target {
+      color: var(--green);
       font-size: 34px;
       font-weight: 880;
-      color: var(--green);
       line-height: 1;
     }
 
+    .metric p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
     .ask-box {
-      padding: 20px;
-      display: grid;
-      gap: 12px;
-      background: #fffdf7;
+      margin-top: 16px;
+      padding: 22px;
+      background: var(--soft-amber);
       border-color: #f1d08a;
     }
 
     .ask-box h3 {
       color: #8a5a00;
+      margin-bottom: 10px;
     }
 
-    .qa {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .talking-point {
+      margin-top: 16px;
+      padding: 22px;
+      background: #fff;
     }
 
-    .qa .card {
-      min-height: 210px;
+    .talking-point h3 {
+      margin-bottom: 10px;
     }
 
-    .controls {
+    .footer-note {
+      margin-top: 18px;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .print-tip {
       position: fixed;
-      right: 24px;
-      bottom: 22px;
-      display: flex;
-      gap: 8px;
-      align-items: center;
+      right: 18px;
+      bottom: 18px;
       z-index: 20;
-      background: rgba(255, 255, 255, .88);
+      padding: 10px 13px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 7px;
-      box-shadow: 0 10px 30px rgba(19, 31, 53, .12);
+      background: rgba(255, 255, 255, .92);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+      box-shadow: 0 8px 24px rgba(19, 31, 53, .12);
       backdrop-filter: blur(10px);
     }
 
-    button {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: #fff;
-      color: var(--ink);
-      font-size: 20px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    button:hover {
-      border-color: var(--blue);
-      color: var(--blue);
-    }
-
-    .progress {
-      min-width: 54px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 750;
-    }
-
-    @media (max-width: 900px) {
-      body {
-        overflow: auto;
+    @media (max-width: 920px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding-top: 10px;
       }
 
-      .deck {
-        height: auto;
-        padding: 12px;
+      .hero {
+        min-height: 86vh;
+        padding: 28px 22px;
       }
 
-      .slide {
-        height: auto;
-        min-height: calc(100vh - 76px);
+      section {
+        padding: 24px 18px;
       }
 
-      .frame {
-        padding: 24px 20px;
-      }
-
-      .team,
-      .grid-3,
       .grid-2,
-      .split,
-      .decision,
-      .timeline,
+      .grid-3,
       .metrics,
-      .qa,
+      .qa-grid,
+      .stat-row,
+      .timeline,
       .flow {
         grid-template-columns: 1fr;
       }
 
       .arrow {
-        height: 32px;
         width: 3px;
+        height: 34px;
         justify-self: center;
       }
 
       .arrow::after {
+        top: auto;
         right: auto;
         left: 50%;
-        top: auto;
         bottom: -2px;
         transform: translateX(-50%) rotate(135deg);
       }
 
-      p,
-      .subtitle {
-        font-size: 20px;
+      nav {
+        position: static;
       }
 
-      .controls {
-        right: 12px;
-        bottom: 12px;
+      p,
+      .lead {
+        font-size: 19px;
       }
     }
 
     @media print {
       body {
-        overflow: visible;
         background: #fff;
       }
 
-      .deck {
-        display: block;
+      .page {
+        width: 100%;
         padding: 0;
       }
 
-      .slide,
-      .slide.active {
-        display: grid;
-        width: 100vw;
-        height: 100vh;
-        min-height: 0;
-        border: 0;
-        border-radius: 0;
+      .hero,
+      section,
+      .footer-note {
         box-shadow: none;
-        page-break-after: always;
+        border-radius: 0;
+        page-break-inside: avoid;
       }
 
-      .controls {
+      nav,
+      .print-tip {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <div class="deck">
-    <section class="slide active">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Day 28 - Track 01</p>
-            <h1>Personalized Learning Path</h1>
-          </div>
-          <div class="slide-number">01</div>
-        </header>
-        <main>
-          <p class="subtitle">Pilot AI tạo checklist/lộ trình bù cá nhân sau D28, giúp học viên biết cần ôn gì trước 6 tuần thực chiến.</p>
-          <div class="team">
-            <div class="member">
-              <strong>Nguyễn Đức Mạnh</strong>
-              <span>2A202600151</span>
-              <span>Phase 1: Frame</span>
-            </div>
-            <div class="member">
-              <strong>Hoàng Quang Thắng</strong>
-              <span>2A202600069</span>
-              <span>Phase 2: Solution</span>
-            </div>
-            <div class="member">
-              <strong>Lê Quang Minh</strong>
-              <span>2A202600381</span>
-              <span>Phase 3: Pilot Plan</span>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>AI20k Learning OS - Personalized Learning Path</span>
-          <span class="speaker">Người nói: cả nhóm</span>
-        </footer>
+  <main class="page">
+    <article class="hero" id="top">
+      <div>
+        <p class="kicker">Day 28 - Track 01</p>
+        <h1>Personalized Learning Path</h1>
+      </div>
+      <p class="subtitle">Pilot AI tạo checklist/lộ trình bù cá nhân sau D28, giúp học viên biết cần ôn gì trước 6 tuần thực chiến.</p>
+      <div class="speaker-bar">
+        <span class="speaker-pill">Người thuyết trình: Nguyễn Đức Mạnh</span>
+        <span class="speaker-pill">MSSV: 2A202600151</span>
+        <span class="speaker-pill">Nhóm Track 01</span>
+      </div>
+    </article>
+
+    <nav aria-label="Mục lục thuyết trình">
+      <a href="#problem">Problem</a>
+      <a href="#quick-win">Quick Win</a>
+      <a href="#solution">Solution</a>
+      <a href="#pilot">Pilot Plan</a>
+      <a href="#metrics">Metrics & Ask</a>
+      <a href="#qa">Q&A</a>
+    </nav>
+
+    <section id="problem">
+      <div class="section-head">
+        <p class="kicker">1. Problem & User</p>
+        <h2>Sau D28, học viên không biết chính xác mình cần ôn gì</h2>
+        <p class="lead">Vấn đề không phải là thiếu tài liệu. Vấn đề là sau khi nộp D28, feedback và lỗi trong bài làm chưa được chuyển thành một danh sách ưu tiên học tập ngắn, đúng người, đúng thời điểm.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card accent-blue">
+          <h3>Khoảnh khắc đau</h3>
+          <p>Học viên vừa hoàn thành D28 và chuẩn bị bước vào 6 tuần thực chiến. Đây là lúc các lỗ hổng về Problem Framing, Build/Buy/Boost, metric và exit criteria sẽ ảnh hưởng trực tiếp đến dự án thật.</p>
+        </div>
+        <div class="card accent-teal">
+          <h3>Người đau</h3>
+          <p>Học viên cần biết mình nên học gì tiếp theo. Coach cần biết ai đang cần can thiệp trước khi vào project, nhưng không thể cá nhân hóa thủ công ở quy mô lớn.</p>
+        </div>
+        <div class="card accent-amber">
+          <h3>Workflow hiện tại</h3>
+          <p>Học viên tự đọc lại slide/LMS nếu thấy cần, hỏi Discord khi kẹt, hoặc chờ coach feedback. Feedback nếu có thường rời rạc, chưa thành checklist hành động.</p>
+        </div>
+        <div class="card accent-green">
+          <h3>Vấn đề thật</h3>
+          <p>Cần một cơ chế biến bằng chứng học tập sau D28 thành 1-3 action cá nhân, có nguồn, có coach review, và không biến thành một platform lớn ngay từ đầu.</p>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <strong>30-40%</strong>
+          <span>Baseline giả định: tỷ lệ học viên có thể nói rõ 3 việc cần ôn sau D28. Tuần 1 sẽ đo lại bằng survey và audit bài nộp.</span>
+        </div>
+        <div class="stat">
+          <strong>~80</strong>
+          <span>Học viên Product trong phạm vi pilot. Nếu scale toàn khóa thì bối cảnh là khoảng 500 học viên.</span>
+        </div>
+      </div>
+
+      <div class="talking-point">
+        <h3>Lời nói khi thuyết trình</h3>
+        <ul>
+          <li>Em không pitch một hệ thống học tập cá nhân hóa hoàn chỉnh ngay từ đầu.</li>
+          <li>Em chọn đúng một khoảnh khắc: sau D28, trước 6 tuần thực chiến.</li>
+          <li>Nếu học viên không biết mình cần ôn gì, họ sẽ hoặc đọc lại quá nhiều, hoặc bỏ sót phần quan trọng.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Problem & User</p>
-            <h2>Sau D28, học viên không biết mình cần ôn gì</h2>
-          </div>
-          <div class="slide-number">02</div>
-        </header>
-        <main>
-          <div class="split">
-            <div class="grid-2">
-              <div class="card accent-blue">
-                <strong>Khoảnh khắc đau</strong>
-                <p>Vừa nộp D28 và chuẩn bị bước vào 6 tuần thực chiến.</p>
-              </div>
-              <div class="card accent-teal">
-                <strong>Người đau</strong>
-                <p>Học viên cần biết điểm yếu; coach cần ưu tiên ai phải can thiệp.</p>
-              </div>
-              <div class="card accent-amber">
-                <strong>Workflow hiện tại</strong>
-                <p>Tự đọc lại tài liệu chung, hỏi Discord khi kẹt, chờ feedback thủ công.</p>
-              </div>
-              <div class="card accent-green">
-                <strong>Vấn đề thật</strong>
-                <p>Feedback chưa chuyển thành 2-3 hành động học tập cụ thể cho từng người.</p>
-              </div>
-            </div>
-            <div class="number-stat">
-              <div class="big">30-40%</div>
-              <span>Baseline giả định: học viên có thể nêu rõ 3 việc cần ôn sau D28. Tuần 1 sẽ đo lại bằng survey và audit bài nộp.</span>
-              <div class="big">~80</div>
-              <span>Học viên Product trong scope pilot; quy mô toàn khóa khoảng 500 học viên.</span>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>Thông điệp: vấn đề không phải thiếu tài liệu, mà là thiếu ưu tiên cá nhân hóa.</span>
-          <span class="speaker">Người nói: Nguyễn Đức Mạnh</span>
-        </footer>
+    <section id="quick-win">
+      <div class="section-head">
+        <p class="kicker">2. Breakdown & Quick Win</p>
+        <h2>Không build toàn bộ Learning OS, chỉ chọn một lát cắt có thể chứng minh nhanh</h2>
+        <p class="lead">Track 1 có nhiều hướng hấp dẫn, nhưng Quick Win phải đủ nhỏ để pilot, đủ rõ để đo, và đủ an toàn để không làm sai lệch việc học của học viên.</p>
+      </div>
+
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Use case</th>
+            <th>Impact</th>
+            <th>Feasibility</th>
+            <th>Evidence</th>
+            <th>Risk an toàn</th>
+            <th>Tổng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="chosen">
+            <td>Checklist điểm yếu sau D28 từ bài nộp + self-assessment</td>
+            <td>5</td>
+            <td>5</td>
+            <td>5</td>
+            <td>4</td>
+            <td>4.80</td>
+          </tr>
+          <tr>
+            <td>Gợi ý 3 tài liệu/ngày học cần xem lại</td>
+            <td>4</td>
+            <td>5</td>
+            <td>5</td>
+            <td>4</td>
+            <td>4.50</td>
+          </tr>
+          <tr>
+            <td>Lộ trình bù 7 ngày cho lỗi Build/Buy/Boost & Pilot Plan</td>
+            <td>5</td>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+            <td>4.30</td>
+          </tr>
+          <tr>
+            <td>View coach: ai cần can thiệp trước thực chiến</td>
+            <td>4</td>
+            <td>4</td>
+            <td>4</td>
+            <td>3</td>
+            <td>3.80</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid-3" style="margin-top: 16px;">
+        <div class="card accent-green">
+          <h3>Chọn</h3>
+          <p>Checklist/lộ trình bù cá nhân sau D28, tối đa 3 action có citation.</p>
+        </div>
+        <div class="card accent-blue">
+          <h3>Vì sao chọn trước</h3>
+          <p>Dữ liệu vừa có, pain đúng thời điểm, evidence thấy được trong 1-2 tuần qua mở checklist, tick action và phản hồi học viên.</p>
+        </div>
+        <div class="card accent-amber">
+          <h3>Không chọn</h3>
+          <p>Peer matching, tracking dài hạn và quiz adaptive bị loại khỏi pilot đầu vì cần dữ liệu, consent, taxonomy và calibration rộng hơn.</p>
+        </div>
+      </div>
+
+      <div class="talking-point">
+        <h3>Lời nói khi thuyết trình</h3>
+        <ul>
+          <li>Quick Win này không phải phần dễ nhất, mà là phần có thể chứng minh giá trị nhanh nhất.</li>
+          <li>Nhóm cố tình không chọn peer matching vì privacy và consent phức tạp hơn.</li>
+          <li>Nhóm cũng chưa chọn tracking dài hạn vì cần platform và taxonomy ổn định, vượt phạm vi pilot.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Breakdown & Quick Win</p>
-            <h2>Không build toàn bộ Learning OS</h2>
-          </div>
-          <div class="slide-number">03</div>
-        </header>
-        <main>
-          <div class="grid-3">
-            <div class="card accent-green">
-              <strong>Chọn</strong>
-              <p>Checklist/lộ trình bù cá nhân sau D28, tối đa 3 action có citation.</p>
-            </div>
-            <div class="card accent-blue">
-              <strong>Vì sao trước</strong>
-              <p>Dữ liệu vừa có, pain đúng thời điểm, chứng minh được trong 1-2 tuần.</p>
-            </div>
-            <div class="card accent-amber">
-              <strong>Không chọn</strong>
-              <p>Peer matching, tracking dài hạn, quiz adaptive vì cần dữ liệu, consent và calibration rộng hơn.</p>
-            </div>
-          </div>
-          <div class="decision">
-            <div class="step">
-              <span class="tag">1</span>
-              <strong>Input gọn</strong>
-              <p>Bài nộp D28, rubric, self-assessment 5 câu.</p>
-            </div>
-            <div class="step">
-              <span class="tag">2</span>
-              <strong>Map lỗi</strong>
-              <p>Gắn lỗi với concept D2, D27, D28.</p>
-            </div>
-            <div class="step">
-              <span class="tag">3</span>
-              <strong>Ưu tiên</strong>
-              <p>Chỉ chọn 1-3 điểm yếu đáng xử lý trước.</p>
-            </div>
-            <div class="step">
-              <span class="tag">4</span>
-              <strong>Action</strong>
-              <p>Đưa tài liệu, việc làm và nguồn rõ ràng.</p>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>Quick Win thắng vì impact cao, khả thi cao, evidence nhanh, risk kiểm soát được.</span>
-          <span class="speaker">Người nói: Nguyễn Đức Mạnh</span>
-        </footer>
+    <section id="solution">
+      <div class="section-head">
+        <p class="kicker">3. Solution Approach</p>
+        <h2>Boost: dùng LLM có sẵn, dữ liệu riêng của AI20k và coach review</h2>
+        <p class="lead">Cách làm không phải build từ số 0. Pilot cần chứng minh checklist có đúng và có người dùng không trước khi đầu tư vào hệ thống adaptive learning đầy đủ.</p>
+      </div>
+
+      <div class="flow">
+        <div class="flow-panel">
+          <h3>Inputs</h3>
+          <ul>
+            <li>Bài nộp D28</li>
+            <li>Rubric/Gate feedback</li>
+            <li>Self-assessment 5 câu</li>
+            <li>Concept -> tài liệu D2/D27/D28</li>
+          </ul>
+        </div>
+        <div class="arrow"></div>
+        <div class="flow-panel">
+          <h3>AI Draft Checklist</h3>
+          <ul>
+            <li>Trích lỗi và evidence từ bài nộp</li>
+            <li>Map lỗi sang concept</li>
+            <li>Chọn tối đa 3 action học lại</li>
+            <li>Gắn citation, confidence và lý do</li>
+          </ul>
+        </div>
+        <div class="arrow"></div>
+        <div class="flow-panel">
+          <h3>Coach Review</h3>
+          <ul>
+            <li>Review sample batch đầu</li>
+            <li>Review 100% output low-confidence</li>
+            <li>Sửa hoặc ẩn nếu thiếu nguồn</li>
+            <li>Gửi học viên tick action</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="example">
+        <h3>Ví dụ checklist gửi học viên</h3>
+        <ol>
+          <li><strong>Điểm yếu:</strong> Exit criteria còn mơ hồ. <strong>Action:</strong> xem lại template D28 Pilot Plan và viết lại 2 điều kiện dừng.</li>
+          <li><strong>Điểm yếu:</strong> Build/Buy/Boost chọn theo cảm tính. <strong>Action:</strong> làm lại decision tree trong 10 phút.</li>
+          <li><strong>Điểm yếu:</strong> Metric thiếu baseline. <strong>Action:</strong> viết baseline giả định và kế hoạch đo tuần 1.</li>
+        </ol>
+      </div>
+
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="card accent-blue">
+          <h3>Vì sao không build từ số 0</h3>
+          <p>Build platform cần taxonomy concept, tích hợp LMS/Discord, consent workflow, dashboard và logging. Nếu pilot nhỏ chưa chứng minh adoption thì platform lớn sẽ lãng phí.</p>
+        </div>
+        <div class="card accent-teal">
+          <h3>Điều kiện pass review</h3>
+          <p>>=80% checklist có đúng 1-3 điểm yếu bám evidence, mỗi action có citation, không có nhận định xúc phạm/định kiến, coach sửa dưới 20% nội dung chính.</p>
+        </div>
+      </div>
+
+      <div class="talking-point">
+        <h3>Lời nói khi thuyết trình</h3>
+        <ul>
+          <li>Ở đây AI không tự quyết năng lực của học viên. AI chỉ draft checklist.</li>
+          <li>Coach review là một phần của thiết kế sản phẩm, không phải bước phụ.</li>
+          <li>Mọi action phải có citation. Thiếu nguồn thì hệ thống phải nói không đủ dữ liệu.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Solution Approach</p>
-            <h2>Boost: LLM có sẵn + dữ liệu riêng + coach review</h2>
-          </div>
-          <div class="slide-number">04</div>
-        </header>
-        <main>
-          <div class="flow">
-            <div class="flow-panel">
-              <h3>Inputs</h3>
-              <div class="flow-list">
-                <span class="pill">Bài nộp D28</span>
-                <span class="pill">Rubric/Gate feedback</span>
-                <span class="pill">Self-assessment 5 câu</span>
-                <span class="pill">Concept -> tài liệu</span>
-              </div>
-            </div>
-            <div class="arrow"></div>
-            <div class="flow-panel">
-              <h3>AI Draft Checklist</h3>
-              <div class="flow-list">
-                <span class="pill">Trích lỗi/evidence</span>
-                <span class="pill">Map sang concept</span>
-                <span class="pill">Chọn tối đa 3 action</span>
-                <span class="pill">Gắn citation + confidence</span>
-              </div>
-            </div>
-            <div class="arrow"></div>
-            <div class="flow-panel">
-              <h3>Coach Review</h3>
-              <div class="flow-list">
-                <span class="pill">Review sample đầu</span>
-                <span class="pill">Review low-confidence</span>
-                <span class="pill">Sửa/ẩn nếu thiếu nguồn</span>
-                <span class="pill">Gửi học viên tick action</span>
-              </div>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>Không build từ số 0: pilot cần chứng minh quality và adoption trước.</span>
-          <span class="speaker">Người nói: Hoàng Quang Thắng</span>
-        </footer>
+    <section id="pilot">
+      <div class="section-head">
+        <p class="kicker">4. AI Pilot Plan</p>
+        <h2>Pilot 3 tuần, scope nhỏ và có cổng dừng rõ ràng</h2>
+        <p class="lead">Pilot này là cam kết hai chiều: nhóm xin dữ liệu, thời gian review và quyền thử nghiệm; đổi lại nhóm hứa giao evidence đủ để approve, sửa hoặc dừng.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="week">
+          <span class="label">Tuần 1</span>
+          <h3>Baseline + mapping</h3>
+          <ul>
+            <li>Tạo concept map D2/D27/D28.</li>
+            <li>Tạo self-assessment 5 câu.</li>
+            <li>Đo baseline bằng survey và audit bài nộp.</li>
+            <li>Cổng: có >=10 concept và >=20 học viên trả lời baseline.</li>
+          </ul>
+        </div>
+        <div class="week">
+          <span class="label">Tuần 2</span>
+          <h3>Batch nhỏ + coach review</h3>
+          <ul>
+            <li>Chạy batch 15-20 học viên đầu.</li>
+            <li>Coach review sample và low-confidence.</li>
+            <li>Sửa prompt/concept map theo lỗi thật.</li>
+            <li>Cổng: >=80% checklist pass review.</li>
+          </ul>
+        </div>
+        <div class="week">
+          <span class="label">Tuần 3</span>
+          <h3>Gửi cohort + đo adoption</h3>
+          <ul>
+            <li>Gửi checklist cho 30-80 học viên.</li>
+            <li>Đo mở checklist, tick action, phản hồi đúng/sai.</li>
+            <li>Quyết định mở rộng, đổi workflow hoặc dừng.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top: 16px;">
+        <div class="card accent-blue">
+          <h3>API/tool</h3>
+          <p>2-5 USD/tuần là giả định cho batch nhỏ, cần đo lại bằng token log trong tuần 1.</p>
+        </div>
+        <div class="card accent-teal">
+          <h3>Coach review</h3>
+          <p>2 giờ để review 15-20 checklist mẫu và toàn bộ output low-confidence.</p>
+        </div>
+        <div class="card accent-amber">
+          <h3>Maintenance</h3>
+          <p>1 giờ/tuần để sửa concept map, citation, prompt và log lỗi học viên báo lại.</p>
+        </div>
+      </div>
+
+      <div class="talking-point">
+        <h3>Lời nói khi thuyết trình</h3>
+        <ul>
+          <li>Tuần 1 không vội chạy AI hàng loạt. Việc đầu tiên là đo baseline và chuẩn hóa concept map.</li>
+          <li>Tuần 2 dùng batch nhỏ để kiểm chất lượng trước.</li>
+          <li>Tuần 3 mới đo adoption thật: học viên có mở không, có tick action không, có thấy đúng điểm yếu không.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">AI Pilot Plan</p>
-            <h2>Pilot 3 tuần, có cổng dừng rõ ràng</h2>
-          </div>
-          <div class="slide-number">05</div>
-        </header>
-        <main>
-          <div class="timeline">
-            <div class="week">
-              <span class="label">Tuần 1</span>
-              <h3>Baseline + mapping</h3>
-              <ul>
-                <li>Tạo concept map D2/D27/D28.</li>
-                <li>Survey baseline 3 câu.</li>
-                <li>Cổng: >=20 học viên có baseline.</li>
-              </ul>
-            </div>
-            <div class="week">
-              <span class="label">Tuần 2</span>
-              <h3>Batch nhỏ + review</h3>
-              <ul>
-                <li>Chạy 15-20 checklist đầu.</li>
-                <li>Coach review sample và low-confidence.</li>
-                <li>Cổng: >=80% pass review.</li>
-              </ul>
-            </div>
-            <div class="week">
-              <span class="label">Tuần 3</span>
-              <h3>Gửi cohort + đo</h3>
-              <ul>
-                <li>Gửi checklist cho 30-80 học viên.</li>
-                <li>Đo mở, tick action, phản hồi.</li>
-                <li>Quyết định mở rộng hoặc dừng.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="grid-3">
-            <div class="card accent-blue">
-              <strong>API/tool</strong>
-              <p>2-5 USD/tuần giả định cho batch nhỏ, đo lại bằng token log.</p>
-            </div>
-            <div class="card accent-teal">
-              <strong>Coach review</strong>
-              <p>2 giờ cho 15-20 checklist mẫu và output low-confidence.</p>
-            </div>
-            <div class="card accent-amber">
-              <strong>Maintenance</strong>
-              <p>1 giờ/tuần để sửa concept map, citation và lỗi prompt.</p>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>Scope đủ nhỏ để học nhanh, đủ chặt để stakeholder quyết định.</span>
-          <span class="speaker">Người nói: Lê Quang Minh</span>
-        </footer>
+    <section id="metrics">
+      <div class="section-head">
+        <p class="kicker">5. Metrics, Exit Criteria & Ask</p>
+        <h2>Xin approve pilot, đổi lại bằng evidence</h2>
+        <p class="lead">Nếu không đạt metric hoặc phát sinh rủi ro nghiêm trọng, nhóm chấp nhận dừng thay vì cố mở rộng.</p>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <span class="target">>=70%</span>
+          <h3>Biết việc cần ôn</h3>
+          <p>Học viên nêu rõ 3 việc cần làm sau khi nhận checklist.</p>
+        </div>
+        <div class="metric">
+          <span class="target">>=80%</span>
+          <h3>Pass coach review</h3>
+          <p>Checklist đúng evidence, có action, có citation.</p>
+        </div>
+        <div class="metric">
+          <span class="target">>=60%</span>
+          <h3>Mở checklist</h3>
+          <p>Adoption đủ để chứng minh kênh gửi có tác dụng.</p>
+        </div>
+        <div class="metric">
+          <span class="target">>=40%</span>
+          <h3>Tick 1 action</h3>
+          <p>Học viên thực hiện ít nhất một bước ôn tập trong 7 ngày.</p>
+        </div>
+      </div>
+
+      <div class="ask-box">
+        <h3>Lời xin rõ ràng</h3>
+        <ul>
+          <li>Approve pilot 3 tuần cho 30-80 học viên Track Product.</li>
+          <li>Cho phép dùng bài nộp D28, self-assessment và tài liệu khóa trong phạm vi privacy đã nêu.</li>
+          <li>Cấp 2 giờ coach review và quyền dừng nếu có lỗi privacy, citation hoặc quality nghiêm trọng.</li>
+        </ul>
+      </div>
+
+      <table class="plain-table" style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th>Mức</th>
+            <th>Điều kiện</th>
+            <th>Hành động</th>
+            <th>Ai có quyền dừng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cảnh báo</td>
+            <td>&lt;60% checklist pass review hoặc &gt;30% học viên phản hồi không đúng điểm yếu.</td>
+            <td>Dừng mở rộng, sửa prompt/concept map, tăng review.</td>
+            <td>Coach lead</td>
+          </tr>
+          <tr>
+            <td>Nghiêm trọng</td>
+            <td>Rò rỉ dữ liệu nhạy cảm, citation sai hàng loạt, hoặc AI gán nhãn gây hiểu sai năng lực học viên.</td>
+            <td>Dừng pilot ngay, thu hồi checklist, audit log.</td>
+            <td>Instructor/owner chương trình</td>
+          </tr>
+          <tr>
+            <td>Không đáng mở rộng</td>
+            <td>Adoption &lt;30% mở checklist sau 7 ngày dù đã nhắc 1 lần.</td>
+            <td>Không mở rộng; chuyển sang coach dashboard hoặc đổi kênh nhận.</td>
+            <td>Instructor/owner chương trình</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="talking-point">
+        <h3>Lời nói khi thuyết trình</h3>
+        <ul>
+          <li>Slide cuối của nhóm không chỉ xin làm thử. Nhóm nói rõ xin gì, hứa gì, đo gì và dừng khi nào.</li>
+          <li>Điều kiện dừng quan trọng vì cá nhân hóa sai có thể làm học viên mất trust.</li>
+          <li>Nếu adoption thấp, nhóm không ép mở rộng mà đổi workflow sang coach dùng trước.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Metrics, Exit Criteria & Ask</p>
-            <h2>Xin approve pilot, đổi lại bằng evidence</h2>
-          </div>
-          <div class="slide-number">06</div>
-        </header>
-        <main>
-          <div class="metrics">
-            <div class="metric">
-              <span class="target">>=70%</span>
-              <strong>Biết việc cần ôn</strong>
-              <p>Học viên nêu rõ 3 việc cần làm sau checklist.</p>
-            </div>
-            <div class="metric">
-              <span class="target">>=80%</span>
-              <strong>Pass coach review</strong>
-              <p>Checklist đúng evidence, có action và citation.</p>
-            </div>
-            <div class="metric">
-              <span class="target">>=60%</span>
-              <strong>Mở checklist</strong>
-              <p>Adoption đủ để chứng minh kênh gửi có tác dụng.</p>
-            </div>
-            <div class="metric">
-              <span class="target">>=40%</span>
-              <strong>Tick 1 action</strong>
-              <p>Học viên thực hiện ít nhất một bước ôn tập.</p>
-            </div>
-          </div>
-          <div class="ask-box">
-            <h3>Lời xin</h3>
-            <ul>
-              <li>Approve pilot 3 tuần cho 30-80 học viên Track Product.</li>
-              <li>Cho phép dùng bài nộp D28, self-assessment và tài liệu khóa trong phạm vi privacy đã nêu.</li>
-              <li>Cấp 2 giờ coach review và quyền dừng nếu có lỗi privacy, citation hoặc quality nghiêm trọng.</li>
-            </ul>
-          </div>
-          <div class="grid-2">
-            <div class="card accent-amber">
-              <strong>Cảnh báo</strong>
-              <p>&lt;60% checklist pass review hoặc &gt;30% học viên nói không đúng điểm yếu: dừng mở rộng, sửa prompt/concept map.</p>
-            </div>
-            <div class="card accent-green">
-              <strong>Dừng ngay</strong>
-              <p>Rò rỉ dữ liệu nhạy cảm, citation sai hàng loạt, hoặc AI gán nhãn gây hiểu sai năng lực học viên.</p>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>Slide cuối trả lời: xin gì, hứa gì, đo gì, dừng khi nào.</span>
-          <span class="speaker">Người nói: Lê Quang Minh</span>
-        </footer>
+    <section id="qa">
+      <div class="section-head">
+        <p class="kicker">6. Q&A Prep</p>
+        <h2>3 câu phản biện có thể bị hỏi</h2>
+        <p class="lead">Đây là phần Nguyễn Đức Mạnh có thể dùng để trả lời nhanh khi coach/instructor phản biện.</p>
+      </div>
+
+      <div class="qa-grid">
+        <div class="card accent-blue">
+          <h3>Số liệu lấy ở đâu?</h3>
+          <p>Quy mô ~80 học viên Product và ~500 toàn khóa lấy từ context lab. Các số baseline, adoption, cost là giả định kế hoạch; tuần 1 sẽ đo lại bằng survey, audit và log sử dụng.</p>
+        </div>
+        <div class="card accent-teal">
+          <h3>Nếu giả định sai?</h3>
+          <p>Giả định chính là học viên sẽ dùng checklist nếu ngắn và đúng. Nếu adoption dưới 30% sau 7 ngày, nhóm không mở rộng; chuyển sang coach dashboard hoặc nhúng vào feedback D28.</p>
+        </div>
+        <div class="card accent-amber">
+          <h3>Khi nào dừng?</h3>
+          <p>Dừng ngay nếu có lỗi privacy, citation sai hàng loạt hoặc AI gán nhãn khiến học viên hiểu sai năng lực. Dừng mở rộng nếu quality hoặc adoption không đạt ngưỡng.</p>
+        </div>
+      </div>
+
+      <div class="talking-point">
+        <h3>AI Support Log</h3>
+        <ul>
+          <li>AI giúp bóc tách use case, dựng nháp flow và nhắc ràng buộc privacy/human review/citation.</li>
+          <li>Output nghe hợp lý nhưng nhóm phải sửa: ý tưởng build hệ thống cá nhân hóa đầy đủ quá rộng.</li>
+          <li>Nhóm tự chốt Quick Win, điểm ưu tiên, scope 3 tuần, metric và exit criteria.</li>
+        </ul>
       </div>
     </section>
 
-    <section class="slide">
-      <div class="frame">
-        <header>
-          <div>
-            <p class="kicker">Q&A Prep</p>
-            <h2>3 câu phản biện đã chuẩn bị</h2>
-          </div>
-          <div class="slide-number">07</div>
-        </header>
-        <main>
-          <div class="qa">
-            <div class="card accent-blue">
-              <strong>Số liệu lấy ở đâu?</strong>
-              <p>Quy mô lấy từ context lab. Baseline, adoption, API cost là giả định kế hoạch; tuần 1 đo lại bằng survey, audit và log.</p>
-            </div>
-            <div class="card accent-teal">
-              <strong>Nếu giả định sai?</strong>
-              <p>Nếu adoption &lt;30% sau 7 ngày, không mở rộng; chuyển thành coach dashboard hoặc nhúng vào feedback D28.</p>
-            </div>
-            <div class="card accent-amber">
-              <strong>Khi nào dừng?</strong>
-              <p>Dừng ngay khi có lỗi privacy, citation sai hàng loạt, hoặc AI gán nhãn khiến học viên hiểu sai năng lực.</p>
-            </div>
-          </div>
-        </main>
-        <footer>
-          <span>AI Support Log: AI hỗ trợ nháp và phản biện; nhóm tự chốt Quick Win, scope, metric, exit criteria.</span>
-          <span class="speaker">Người nói: cả nhóm</span>
-        </footer>
-      </div>
-    </section>
-  </div>
+    <div class="footer-note">
+      File thuyết trình dạng một trang dài, không chia slide. Người thuyết trình chính: Nguyễn Đức Mạnh. Có thể cuộn trực tiếp trong trình duyệt hoặc dùng chức năng Print để xuất PDF.
+    </div>
+  </main>
 
-  <nav class="controls" aria-label="Điều hướng slide">
-    <button type="button" id="prev" title="Slide trước" aria-label="Slide trước">‹</button>
-    <span class="progress" id="progress">1 / 7</span>
-    <button type="button" id="next" title="Slide sau" aria-label="Slide sau">›</button>
-  </nav>
-
-  <script>
-    const slides = Array.from(document.querySelectorAll(".slide"));
-    const progress = document.getElementById("progress");
-    const prev = document.getElementById("prev");
-    const next = document.getElementById("next");
-    let current = 0;
-
-    function showSlide(index) {
-      current = Math.max(0, Math.min(index, slides.length - 1));
-      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
-      progress.textContent = `${current + 1} / ${slides.length}`;
-      prev.disabled = current === 0;
-      next.disabled = current === slides.length - 1;
-    }
-
-    prev.addEventListener("click", () => showSlide(current - 1));
-    next.addEventListener("click", () => showSlide(current + 1));
-
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
-        event.preventDefault();
-        showSlide(current + 1);
-      }
-
-      if (event.key === "ArrowLeft" || event.key === "PageUp") {
-        event.preventDefault();
-        showSlide(current - 1);
-      }
-
-      if (event.key === "Home") {
-        showSlide(0);
-      }
-
-      if (event.key === "End") {
-        showSlide(slides.length - 1);
-      }
-    });
-
-    showSlide(0);
-  </script>
+  <div class="print-tip">Cuộn để thuyết trình · Cmd/Ctrl+P để xuất PDF</div>
 </body>
 </html>
