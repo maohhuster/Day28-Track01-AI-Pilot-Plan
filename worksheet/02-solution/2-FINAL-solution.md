@@ -2,90 +2,88 @@
 artifact: 5 — Solution Approach + 6 — Demo/Mockup/Flow (bản nộp phase Solution)
 bai-tap: Solution — chốt cách làm + cho stakeholder nhìn thấy
 phase: Double Diamond vòng 2 · ◆ siết (chốt 1 cách làm + 1 artifact trực quan)
-time: ~12 phút (xem deck để biết khung giờ chính xác trong buổi)
+time: ~12 phút
 input: 1-find-existing-solutions.md · 00-context.md · templates/demo-examples.md · prompts/05-demo-challenge.md
-nop-cuoi: Có — bản nộp của phase Solution (Part B + C · A3 mục Solution Approach + Demo/Mockup/Flow)
+nop-cuoi: Có — bản nộp của phase Solution
 ---
 
 # 2 — FINAL: Solution Approach + Demo/Mockup/Flow
 
-Mục tiêu: chốt cách làm cho Quick Win (Build / Buy / Boost / Partner), nói rõ data & ai review cần có, và tạo 1 bản vẽ trực quan để stakeholder *nhìn* được. Đây là nửa "siết lại" của [Double Diamond](https://www.thefountaininstitute.com/blog/what-is-the-double-diamond-design-process) vòng 2 và là bản nộp của phase Solution.
-
-Lý do làm bước này: hai cái bẫy. Một, "tự build" cho oai — trong khi 80–90% nhu cầu nội bộ chỉ cần Boost/Buy; tự build là quyết định khó rút lại nhất. Hai, chỉ nói bằng chữ — stakeholder không duyệt một đoạn văn, họ duyệt khi *nhìn thấy* flow. Không có bản vẽ → trượt Gate 4 dù lập luận tốt.
-
-Quy tắc: **bản vẽ trực quan là BẮT BUỘC; demo chạy được chỉ là điểm cộng.** *Demo đơn giản + lập luận chặt > demo đẹp + lập luận yếu.*
-
-## Quy trình 12 phút
-
-```text
-4 phút  — Phần A: chốt Build/Buy/Boost/Partner (decision tree + ego check)
-3 phút  — Phần B: data & ai review cần có
-5 phút  — Phần C: vẽ 1 artifact trực quan + đánh dấu chỗ người review
-```
-
----
-
 ## Phần A — Chốt cách làm
 
-Đi decision tree, đừng chọn theo cảm giác:
+- **Cách làm chốt**: **Boost** — dùng LLM/API có sẵn + dữ liệu riêng của AI20k (rubric, concept map, tài liệu D2/D27/D28, bài nộp D28, self-assessment) để sinh checklist cá nhân có citation và coach review.
+- **Lý do CẦN**: Track này là productivity/learning-support layer, chưa phải lợi thế cạnh tranh lõi cần build platform từ đầu. Pilot cần chứng minh học viên có nhận đúng action học tập không trước khi đầu tư vào tracking dài hạn. Cách Boost tận dụng được pattern đã có ở adaptive learning/teacher tools nhưng giữ dữ liệu và rubric theo AI20k.
+- **Vì sao KHÔNG "Build từ số 0"**: Build từ số 0 cần taxonomy concept hoàn chỉnh, tích hợp LMS/Discord, consent workflow, dashboard và logging; rủi ro vượt phạm vi 6 tuần. Nếu pilot nhỏ không chứng minh adoption/quality, platform lớn sẽ lãng phí.
+- **Tool / API / vendor cần + ước lượng chi phí thô**:
+  - LLM/API hoặc ChatGPT Team/Gemini/Claude dùng cho prototype: 🧮 2-5 USD/tuần nếu chạy batch nhỏ 80 học viên, cần đo thực tế theo token tuần 1.
+  - Storage tạm: Google Sheet/CSV + Drive/LMS link, không lưu dữ liệu nhạy cảm ngoài phạm vi được phép.
+  - Thời gian coach review: 🧮 2 giờ cho 15-20 checklist mẫu + toàn bộ checklist low-confidence.
 
-```text
-Bài này có phải LỢI THẾ CẠNH TRANH CỐT LÕI không?
- ├─ CÓ  → đội có AI engineer mạnh? CÓ → Build · KHÔNG → Boost
- └─ KHÔNG (chỉ là productivity layer) → có tool sẵn?
-          CÓ → Buy · KHÔNG → Boost (model sẵn + data riêng)
-```
-
-Câu hỏi phụ:
-
-- Nhóm chọn cách này vì *cần* hay vì *thích tự build*? Một câu thành thật.
-- Hướng nào ở file `1` (đã tìm được người làm rồi) khớp với cách này — "đi từ 5 lên"?
-
-### Trả lời
-
-- **Cách làm chốt**: Build / Buy / Boost / Partner
-- **Lý do CẦN (không phải thích), 2–3 câu**: [...]
-- **Vì sao KHÔNG "Build từ số 0"**: [...]
-- **Tool / API / vendor cần + ước lượng chi phí thô** (budget nhỏ, ưu tiên sẵn có): [...]
-
-## Phần B — Data & ai review (cách làm này cần gì để chạy được)
+## Phần B — Data & ai review
 
 | Cần gì | Có sẵn trong AI20k? | Trong lab dùng (mẫu/giả định) | Privacy? |
 |---|---|---|---|
-| Data: | | | |
-| Data: | | | |
+| Data: bài nộp D28 + rubric/gate feedback | Có/giả định có | 5-10 bài mẫu hoặc bài nhóm hiện tại | Có dữ liệu học viên; ẩn tên khi test |
+| Data: mapping concept -> tài liệu D2/D27/D28 | Có một phần trong handbook/template | Bảng mapping thủ công 10-15 concept chính | Không nhạy cảm |
+| Data: self-assessment 5 câu | Chưa chắc có | Form giả định: mục tiêu, confidence, phần yếu, thời gian học, kênh nhận | Có, cần consent |
+| Data: tiến độ LMS/quiz | Có thể có | Chỉ dùng nếu được cấp quyền; nếu không thì bỏ khỏi pilot đầu | Có, chỉ dùng tối thiểu |
 
-- **Output nào rủi ro cao** (sai gây hậu quả): [...]
-- **Ai review + bao nhiêu mẫu + pass/fail theo gì**: [...]
-- **Có cần citation / nói "không biết" khi thiếu nguồn không**: [...]
+- **Output rủi ro cao**: Gán nhãn "học viên yếu ở X" hoặc khuyến nghị sai khiến học viên ôn nhầm; output này không được dùng để chấm điểm hoặc đánh giá năng lực chính thức.
+- **Ai review + bao nhiêu mẫu + pass/fail theo gì**: Coach review 15-20 checklist đầu tiên và 100% checklist low-confidence. Pass nếu >=80% checklist có đúng 1-3 điểm yếu bám evidence, mỗi action có citation, không có nhận định xúc phạm/định kiến, và coach không phải sửa quá 20% nội dung chính.
+- **Có cần citation / nói "không biết" khi thiếu nguồn không**: Có. Mỗi action phải trỏ về tài liệu/ngày học/template; nếu không tìm được nguồn, output ghi "không đủ dữ liệu để khuyến nghị".
 
-## Phần C — Bản vẽ trực quan (BẮT BUỘC)
-
-Chọn **1** dạng nhẹ nhất đủ rõ (xem `templates/demo-examples.md`): mockup 2–3 màn hình · user flow trước/sau · prompt flow · agent flow · 1 cặp input–output thật. Vẽ tay / ASCII / bảng đều được.
+## Phần C — Bản vẽ trực quan
 
 ```text
-(vẽ artifact của nhóm vào đây)
+BEFORE
+Học viên nộp D28
+   |
+   v
+Tự đoán mình yếu gì -> đọc lại tài liệu chung -> dễ quá tải / bỏ sót
 
+AFTER: Personalized Learning Path Pilot
 
+Inputs
+  [Bài nộp D28]   [Rubric/Gate]   [Self-assessment 5 câu]   [Concept -> tài liệu]
+        \              |                    |                       /
+         \             |                    |                      /
+          v            v                    v                     v
+       +-------------------------------------------------------------+
+       | AI Draft Checklist                                          |
+       | - trích lỗi/evidence từ bài nộp                             |
+       | - map lỗi -> concept D2/D27/D28                              |
+       | - chọn tối đa 3 action học lại có citation                   |
+       | - gắn confidence + lý do                                     |
+       +-------------------------------+-----------------------------+
+                                       |
+                  low confidence hoặc sample review
+                                       v
+                            [COACH REVIEW / EDIT]
+                                       |
+                                       v
+       +-------------------------------------------------------------+
+       | Checklist gửi học viên                                      |
+       | 1. Điểm yếu: Exit criteria còn mơ hồ                         |
+       |    Evidence: slide pitch chưa nêu điều kiện dừng             |
+       |    Action: xem lại D28 Pilot Plan template + sửa 2 dòng      |
+       | 2. Điểm yếu: Build/Buy/Boost chọn theo cảm tính              |
+       |    Action: làm lại decision tree trong 10 phút               |
+       | 3. Điểm yếu: metric thiếu baseline                           |
+       |    Action: viết baseline giả định + kế hoạch đo tuần 1       |
+       +-------------------------------------------------------------+
+                                       |
+                                       v
+                       Học viên tick action -> phản hồi "đúng/yếu/sai"
 
-Chỗ con người review (output rủi ro cao) nằm ở:
+Chỗ con người review: coach review trước khi gửi batch đầu, review 100% output low-confidence,
+và có quyền ẩn/sửa checklist nếu AI gán nhãn sai hoặc thiếu citation.
 ```
-
-Câu hỏi phụ — một người đóng vai stakeholder nhìn 20 giây: *hiểu user làm gì, nhận lại gì, không cần giải thích thêm không? Có chỗ nào "đẹp nhưng rỗng" không?*
-
----
 
 ## Tổng kiểm tra trước khi sang `../03-pilot-plan/`
 
 | Hạng mục | Xong? |
 |---|---|
-| Cách làm có lý do CẦN, không phải "mặc định tự build" | / |
-| Nói rõ data cần + ai review output rủi ro cao | / |
-| Có ≥1 bản vẽ trực quan, người ngoài hiểu trong ~20 giây | / |
-| Có đánh dấu chỗ con người review | / |
-
-⚑ Coach kiểm tra ở Mốc 3: *"Stakeholder nhìn vào đâu để hiểu flow? Mockup/sketch/demo đâu?"* Chỉ nói bằng chữ = chưa qua.
-
-Sau bước này, mở `../03-pilot-plan/1-pilot-plan.md`.
-
-*Liên quan: handbook §A5+§A6 · `templates/demo-examples.md` · `prompts/05-demo-challenge.md`*
+| Cách làm có lý do CẦN, không phải mặc định tự build | X |
+| Nói rõ data cần + ai review output rủi ro cao | X |
+| Có ≥1 bản vẽ trực quan, người ngoài hiểu trong ~20 giây | X |
+| Có đánh dấu chỗ con người review | X |

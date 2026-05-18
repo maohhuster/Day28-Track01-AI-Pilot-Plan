@@ -2,89 +2,49 @@
 artifact: 1 — Track & Big Ask + 2 — Tool Breakdown
 bai-tap: Frame — nghe đúng đề rồi tách nhỏ
 phase: Double Diamond vòng 1 · ◇ giãn (nghe rộng, chưa chốt)
-time: ~12 phút (xem deck để biết khung giờ chính xác trong buổi)
+time: ~12 phút
 input: 00-context.md · track card · prompts/01-breakdown.md
-nop-cuoi: Không — file trung gian (bản chốt phase này ở 3-FINAL-problem-framing.md)
+nop-cuoi: Không — file trung gian
 ---
 
 # 1 — Intake & Breakdown: nghe đúng đề, tách nhỏ
 
-Mục tiêu: cả nhóm hiểu giống nhau "công cụ lớn stakeholder muốn", rồi tách nó thành 5–8 use case nhỏ làm được riêng. Đây là nửa "giãn ra" của [Double Diamond](https://www.thefountaininstitute.com/blog/what-is-the-double-diamond-design-process) vòng 1 — nghe rộng, tách rộng, chưa chọn.
-
-Lý do làm bước này: hai cái bẫy chết người ở đây. Một, nhận đề literal ("làm con chatbot") rồi nhảy vào build — trong khi yêu cầu mơ hồ thường chỉ là triệu chứng. Hai, ôm cả công cụ lớn đi pitch "build cả platform" → trượt Gate 1 ngay. Tách nhỏ là động tác bắt buộc để từ "một ý tưởng to" sang "danh sách phần làm được".
-
-Quy tắc: **nghe trước, tách trước, chưa chọn.** Bước này không được chốt Quick Win (việc đó ở file `2`).
-
-## Bước 0 — Đọc track card + 00-context (2 phút)
-
-Đọc track card được giao và `00-context.md` (mục 2 đã điền). Đừng lướt.
-
-## Quy trình 12 phút
-
-```text
-2 phút  — Bước 0: đọc track card + context
-4 phút  — Phần A: phát biểu lại Big Ask bằng lời nhóm
-6 phút  — Phần B: tách 5–8 use case + check độc lập
-```
-
----
-
 ## Phần A — Phát biểu lại Big Ask bằng lời nhóm
 
-Đừng chép lại đề. Cả nhóm nói lại "công cụ lớn stakeholder muốn" bằng lời mình. Nếu 3 người nói 3 kiểu khác nhau → chưa hiểu giống nhau, bàn thêm.
-
-Câu hỏi phụ (tự trả lời):
-
-- Stakeholder nói họ muốn gì, và họ thực sự *cần* gì — có khác nhau không?
-- "Tại sao bây giờ?" — ở quy mô ~500 người, cái gì đang đau khiến phải làm công cụ này lúc này?
-- Ai là người dùng đầu tiên thật sự, không phải "cả khóa"?
-
-### Trả lời
-
-- **Big Ask, viết lại bằng lời nhóm (2–3 câu)**: [...]
-- **Tại sao bây giờ**: [...]
-- **Người dùng đầu tiên cụ thể**: [...]
+- **Big Ask, viết lại bằng lời nhóm**: Stakeholder muốn một hệ thống giúp mỗi học viên biết mình nên học gì tiếp theo, cần ôn lại phần nào và cần chuẩn bị ra sao trước 6 tuần thực chiến. Nhóm không hiểu đây là "chatbot học tập cho mọi thứ", mà là một lớp hỗ trợ ra quyết định học tập dựa trên bằng chứng từ bài làm, tiến độ và mục tiêu của học viên.
+- **Tại sao bây giờ**: Sau Day 28, học viên chuyển sang giai đoạn thực chiến; nếu không biết mình yếu ở đâu thì các lỗ hổng từ D2/D27/D28 sẽ đi theo vào dự án thật. Với quy mô ~500 học viên, coach khó tự đọc từng bài, nhắc từng người và cá nhân hóa lộ trình thủ công.
+- **Người dùng đầu tiên cụ thể**: Học viên vừa hoàn thành D28 và sắp bước vào 6 tuần thực chiến; coach là người review gợi ý trước khi gửi rộng.
 
 ## Phần B — Tách công cụ lớn thành 5–8 use case
 
-Nhìn mục **Big Vision Modules** trong track card. Mỗi dòng = 1 use case làm được riêng, viết dạng *"AI làm X cho ai để họ Y"* — không phải tính năng mơ hồ. Cần 5–8 dòng (ít hơn 5 = chưa tách đủ; nhiều hơn 8 = đang liệt kê vụn).
-
 | # | Use case (AI làm gì · cho ai · để họ làm được gì) | Người dùng | Làm được độc lập? |
 |---|---|---|---|
-| 1 | | | Có / Không — phụ thuộc # |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-
-Cần ít nhất **4 use case thật sự độc lập** (làm được mà không cần cái khác xong trước). Nếu nhiều cái phụ thuộc nhau → gộp hoặc viết lại cho tách bạch.
-
----
+| 1 | AI đọc bài nộp D28 + self-assessment để tạo checklist "điểm yếu trước thực chiến" cho từng học viên | Học viên | Có |
+| 2 | AI gợi ý 3 tài liệu/ngày học cần xem lại dựa trên lỗi trong bài nộp D28 | Học viên | Có |
+| 3 | AI sinh lộ trình bù 7 ngày cho học viên yếu ở Build/Buy/Boost và Pilot Plan | Học viên | Có |
+| 4 | AI tạo view cho coach: nhóm/học viên nào cần can thiệp trước khi vào project thật | Coach | Có, nếu có bài nộp/rubric |
+| 5 | AI theo dõi tiến độ theo concept xuyên suốt D2, D27, D28 để nhắc học viên ôn đúng chỗ | Học viên, coach | Không — cần taxonomy concept ổn định |
+| 6 | AI gợi ý peer hỗ trợ dựa trên điểm mạnh/yếu bổ sung giữa các học viên | Học viên | Không — cần consent và dữ liệu hồ sơ rộng hơn |
+| 7 | AI chẩn đoán kỹ năng đầu/giữa khóa bằng quiz adaptive | Học viên, instructor | Có, nhưng cần ngân hàng câu hỏi |
+| 8 | AI cá nhân hóa lộ trình theo mục tiêu nghề nghiệp PM/founder/engineer/operator | Học viên | Có, nhưng cần goal profile rõ |
 
 ## Phát hiện ban đầu
 
-- [...]
-- [...]
+- Quick Win nên nằm ở khoảnh khắc ngay sau D28, vì dữ liệu vừa có, nhu cầu chuẩn bị 6 tuần thực chiến rất rõ.
+- Use case liên quan peer matching và tracking dài hạn hấp dẫn nhưng dễ chạm privacy/consent và cần dữ liệu nhiều hơn.
+- "Personalized Learning Path" chỉ có giá trị nếu khuyến nghị khác nhau theo lỗi thật, không chỉ template chung thay tên.
 
 ## Câu hỏi mở (mang sang bước chọn Quick Win)
 
-- [...]
-- [...]
-
----
+- Có lấy được bài nộp/rubric D28 ở định dạng đủ máy đọc không?
+- Coach có thời gian review bao nhiêu mẫu trước khi gửi khuyến nghị cho học viên?
+- Học viên muốn nhận lộ trình qua kênh nào: LMS, Discord DM, hay file cá nhân?
 
 ## Tổng kiểm tra trước khi sang `2-quick-win.md`
 
 | Hạng mục | Xong? |
 |---|---|
-| Cả nhóm phát biểu lại Big Ask giống nhau, không cần nhìn card | / |
-| Có 5–8 use case dạng "AI làm X cho ai để Y" | / |
-| Có ≥4 use case thật sự độc lập | / |
-| Nhóm KHÔNG còn ý định pitch "build cả platform" | / |
-
-Sau bước này, mở `2-quick-win.md` — chấm điểm chọn 1 lát cắt làm trước.
-
-*Liên quan: handbook §A1+§A2 · `prompts/01-breakdown.md` · `00-context.md`*
+| Cả nhóm phát biểu lại Big Ask giống nhau, không cần nhìn card | X |
+| Có 5–8 use case dạng "AI làm X cho ai để Y" | X |
+| Có ≥4 use case thật sự độc lập | X |
+| Nhóm KHÔNG còn ý định pitch "build cả platform" | X |
