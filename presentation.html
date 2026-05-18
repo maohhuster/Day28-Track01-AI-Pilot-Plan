@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 28 - Personalized Learning Path</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #657084;
+      --line: #dbe2ef;
+      --paper: #fbfcff;
+      --panel: #ffffff;
+      --blue: #2563eb;
+      --teal: #0f8b8d;
+      --green: #2f9e44;
+      --amber: #c77700;
+      --red: #c92a2a;
+      --shadow: 0 22px 60px rgba(19, 31, 53, .13);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      background: #eef2f8;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .slide {
+      display: none;
+      width: min(1280px, 100%);
+      height: min(720px, calc(100vh - 96px));
+      min-height: 560px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide.active {
+      display: grid;
+      animation: fadeIn .18s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: .35; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .frame {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 34px 42px 28px;
+      gap: 22px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+      border-top: 5px solid var(--blue);
+      padding-top: 18px;
+    }
+
+    .kicker {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 0 0 8px;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      letter-spacing: 0;
+      line-height: 1.05;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(44px, 6vw, 76px);
+      font-weight: 850;
+    }
+
+    h2 {
+      font-size: clamp(34px, 4.7vw, 54px);
+      font-weight: 840;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.42;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 26px;
+      line-height: 1.35;
+    }
+
+    .slide-number {
+      min-width: 58px;
+      height: 58px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 850;
+      background: #fff;
+    }
+
+    main {
+      display: grid;
+      align-content: center;
+      gap: 22px;
+      min-height: 0;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 15px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .speaker {
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .team {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .member,
+    .card,
+    .metric,
+    .step,
+    .callout,
+    .ask-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .member {
+      padding: 18px;
+      min-height: 112px;
+    }
+
+    .member strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .member span {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      min-height: 150px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .card strong,
+    .step strong,
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .card p,
+    .step p,
+    .metric p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.38;
+    }
+
+    .accent-blue {
+      border-top: 4px solid var(--blue);
+    }
+
+    .accent-teal {
+      border-top: 4px solid var(--teal);
+    }
+
+    .accent-green {
+      border-top: 4px solid var(--green);
+    }
+
+    .accent-amber {
+      border-top: 4px solid var(--amber);
+    }
+
+    .number-stat {
+      display: grid;
+      gap: 10px;
+      padding: 24px;
+      background: #f5f8ff;
+      border: 1px solid #cdd9f7;
+      border-radius: var(--radius);
+    }
+
+    .number-stat .big {
+      font-size: clamp(44px, 5vw, 64px);
+      line-height: 1;
+      font-weight: 880;
+      color: var(--blue);
+    }
+
+    .number-stat span {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .step {
+      padding: 16px;
+      position: relative;
+      min-height: 145px;
+    }
+
+    .step .tag {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 850;
+      margin-bottom: 12px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: .9fr .15fr 1fr .15fr .9fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .flow-panel {
+      min-height: 320px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .flow-panel h3 {
+      color: var(--blue);
+    }
+
+    .flow-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: #f4f7fb;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 680;
+    }
+
+    .arrow {
+      height: 3px;
+      background: var(--blue);
+      position: relative;
+      border-radius: 999px;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border-top: 3px solid var(--blue);
+      border-right: 3px solid var(--blue);
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .week {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      min-height: 230px;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 12px;
+    }
+
+    .week .label {
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eaf1ff;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .week ul,
+    .ask-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.42;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 170px;
+      padding: 18px;
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .metric .target {
+      font-size: 34px;
+      font-weight: 880;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .ask-box {
+      padding: 20px;
+      display: grid;
+      gap: 12px;
+      background: #fffdf7;
+      border-color: #f1d08a;
+    }
+
+    .ask-box h3 {
+      color: #8a5a00;
+    }
+
+    .qa {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .qa .card {
+      min-height: 210px;
+    }
+
+    .controls {
+      position: fixed;
+      right: 24px;
+      bottom: 22px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      z-index: 20;
+      background: rgba(255, 255, 255, .88);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px;
+      box-shadow: 0 10px 30px rgba(19, 31, 53, .12);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .progress {
+      min-width: 54px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .deck {
+        height: auto;
+        padding: 12px;
+      }
+
+      .slide {
+        height: auto;
+        min-height: calc(100vh - 76px);
+      }
+
+      .frame {
+        padding: 24px 20px;
+      }
+
+      .team,
+      .grid-3,
+      .grid-2,
+      .split,
+      .decision,
+      .timeline,
+      .metrics,
+      .qa,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        height: 32px;
+        width: 3px;
+        justify-self: center;
+      }
+
+      .arrow::after {
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -2px;
+        transform: translateX(-50%) rotate(135deg);
+      }
+
+      p,
+      .subtitle {
+        font-size: 20px;
+      }
+
+      .controls {
+        right: 12px;
+        bottom: 12px;
+      }
+    }
+
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff;
+      }
+
+      .deck {
+        display: block;
+        padding: 0;
+      }
+
+      .slide,
+      .slide.active {
+        display: grid;
+        width: 100vw;
+        height: 100vh;
+        min-height: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+
+      .controls {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <section class="slide active">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Day 28 - Track 01</p>
+            <h1>Personalized Learning Path</h1>
+          </div>
+          <div class="slide-number">01</div>
+        </header>
+        <main>
+          <p class="subtitle">Pilot AI tạo checklist/lộ trình bù cá nhân sau D28, giúp học viên biết cần ôn gì trước 6 tuần thực chiến.</p>
+          <div class="team">
+            <div class="member">
+              <strong>Nguyễn Đức Mạnh</strong>
+              <span>2A202600151</span>
+              <span>Phase 1: Frame</span>
+            </div>
+            <div class="member">
+              <strong>Hoàng Quang Thắng</strong>
+              <span>2A202600069</span>
+              <span>Phase 2: Solution</span>
+            </div>
+            <div class="member">
+              <strong>Lê Quang Minh</strong>
+              <span>2A202600381</span>
+              <span>Phase 3: Pilot Plan</span>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>AI20k Learning OS - Personalized Learning Path</span>
+          <span class="speaker">Người nói: cả nhóm</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Problem & User</p>
+            <h2>Sau D28, học viên không biết mình cần ôn gì</h2>
+          </div>
+          <div class="slide-number">02</div>
+        </header>
+        <main>
+          <div class="split">
+            <div class="grid-2">
+              <div class="card accent-blue">
+                <strong>Khoảnh khắc đau</strong>
+                <p>Vừa nộp D28 và chuẩn bị bước vào 6 tuần thực chiến.</p>
+              </div>
+              <div class="card accent-teal">
+                <strong>Người đau</strong>
+                <p>Học viên cần biết điểm yếu; coach cần ưu tiên ai phải can thiệp.</p>
+              </div>
+              <div class="card accent-amber">
+                <strong>Workflow hiện tại</strong>
+                <p>Tự đọc lại tài liệu chung, hỏi Discord khi kẹt, chờ feedback thủ công.</p>
+              </div>
+              <div class="card accent-green">
+                <strong>Vấn đề thật</strong>
+                <p>Feedback chưa chuyển thành 2-3 hành động học tập cụ thể cho từng người.</p>
+              </div>
+            </div>
+            <div class="number-stat">
+              <div class="big">30-40%</div>
+              <span>Baseline giả định: học viên có thể nêu rõ 3 việc cần ôn sau D28. Tuần 1 sẽ đo lại bằng survey và audit bài nộp.</span>
+              <div class="big">~80</div>
+              <span>Học viên Product trong scope pilot; quy mô toàn khóa khoảng 500 học viên.</span>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>Thông điệp: vấn đề không phải thiếu tài liệu, mà là thiếu ưu tiên cá nhân hóa.</span>
+          <span class="speaker">Người nói: Nguyễn Đức Mạnh</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Breakdown & Quick Win</p>
+            <h2>Không build toàn bộ Learning OS</h2>
+          </div>
+          <div class="slide-number">03</div>
+        </header>
+        <main>
+          <div class="grid-3">
+            <div class="card accent-green">
+              <strong>Chọn</strong>
+              <p>Checklist/lộ trình bù cá nhân sau D28, tối đa 3 action có citation.</p>
+            </div>
+            <div class="card accent-blue">
+              <strong>Vì sao trước</strong>
+              <p>Dữ liệu vừa có, pain đúng thời điểm, chứng minh được trong 1-2 tuần.</p>
+            </div>
+            <div class="card accent-amber">
+              <strong>Không chọn</strong>
+              <p>Peer matching, tracking dài hạn, quiz adaptive vì cần dữ liệu, consent và calibration rộng hơn.</p>
+            </div>
+          </div>
+          <div class="decision">
+            <div class="step">
+              <span class="tag">1</span>
+              <strong>Input gọn</strong>
+              <p>Bài nộp D28, rubric, self-assessment 5 câu.</p>
+            </div>
+            <div class="step">
+              <span class="tag">2</span>
+              <strong>Map lỗi</strong>
+              <p>Gắn lỗi với concept D2, D27, D28.</p>
+            </div>
+            <div class="step">
+              <span class="tag">3</span>
+              <strong>Ưu tiên</strong>
+              <p>Chỉ chọn 1-3 điểm yếu đáng xử lý trước.</p>
+            </div>
+            <div class="step">
+              <span class="tag">4</span>
+              <strong>Action</strong>
+              <p>Đưa tài liệu, việc làm và nguồn rõ ràng.</p>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>Quick Win thắng vì impact cao, khả thi cao, evidence nhanh, risk kiểm soát được.</span>
+          <span class="speaker">Người nói: Nguyễn Đức Mạnh</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Solution Approach</p>
+            <h2>Boost: LLM có sẵn + dữ liệu riêng + coach review</h2>
+          </div>
+          <div class="slide-number">04</div>
+        </header>
+        <main>
+          <div class="flow">
+            <div class="flow-panel">
+              <h3>Inputs</h3>
+              <div class="flow-list">
+                <span class="pill">Bài nộp D28</span>
+                <span class="pill">Rubric/Gate feedback</span>
+                <span class="pill">Self-assessment 5 câu</span>
+                <span class="pill">Concept -> tài liệu</span>
+              </div>
+            </div>
+            <div class="arrow"></div>
+            <div class="flow-panel">
+              <h3>AI Draft Checklist</h3>
+              <div class="flow-list">
+                <span class="pill">Trích lỗi/evidence</span>
+                <span class="pill">Map sang concept</span>
+                <span class="pill">Chọn tối đa 3 action</span>
+                <span class="pill">Gắn citation + confidence</span>
+              </div>
+            </div>
+            <div class="arrow"></div>
+            <div class="flow-panel">
+              <h3>Coach Review</h3>
+              <div class="flow-list">
+                <span class="pill">Review sample đầu</span>
+                <span class="pill">Review low-confidence</span>
+                <span class="pill">Sửa/ẩn nếu thiếu nguồn</span>
+                <span class="pill">Gửi học viên tick action</span>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>Không build từ số 0: pilot cần chứng minh quality và adoption trước.</span>
+          <span class="speaker">Người nói: Hoàng Quang Thắng</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">AI Pilot Plan</p>
+            <h2>Pilot 3 tuần, có cổng dừng rõ ràng</h2>
+          </div>
+          <div class="slide-number">05</div>
+        </header>
+        <main>
+          <div class="timeline">
+            <div class="week">
+              <span class="label">Tuần 1</span>
+              <h3>Baseline + mapping</h3>
+              <ul>
+                <li>Tạo concept map D2/D27/D28.</li>
+                <li>Survey baseline 3 câu.</li>
+                <li>Cổng: >=20 học viên có baseline.</li>
+              </ul>
+            </div>
+            <div class="week">
+              <span class="label">Tuần 2</span>
+              <h3>Batch nhỏ + review</h3>
+              <ul>
+                <li>Chạy 15-20 checklist đầu.</li>
+                <li>Coach review sample và low-confidence.</li>
+                <li>Cổng: >=80% pass review.</li>
+              </ul>
+            </div>
+            <div class="week">
+              <span class="label">Tuần 3</span>
+              <h3>Gửi cohort + đo</h3>
+              <ul>
+                <li>Gửi checklist cho 30-80 học viên.</li>
+                <li>Đo mở, tick action, phản hồi.</li>
+                <li>Quyết định mở rộng hoặc dừng.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="card accent-blue">
+              <strong>API/tool</strong>
+              <p>2-5 USD/tuần giả định cho batch nhỏ, đo lại bằng token log.</p>
+            </div>
+            <div class="card accent-teal">
+              <strong>Coach review</strong>
+              <p>2 giờ cho 15-20 checklist mẫu và output low-confidence.</p>
+            </div>
+            <div class="card accent-amber">
+              <strong>Maintenance</strong>
+              <p>1 giờ/tuần để sửa concept map, citation và lỗi prompt.</p>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>Scope đủ nhỏ để học nhanh, đủ chặt để stakeholder quyết định.</span>
+          <span class="speaker">Người nói: Lê Quang Minh</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Metrics, Exit Criteria & Ask</p>
+            <h2>Xin approve pilot, đổi lại bằng evidence</h2>
+          </div>
+          <div class="slide-number">06</div>
+        </header>
+        <main>
+          <div class="metrics">
+            <div class="metric">
+              <span class="target">>=70%</span>
+              <strong>Biết việc cần ôn</strong>
+              <p>Học viên nêu rõ 3 việc cần làm sau checklist.</p>
+            </div>
+            <div class="metric">
+              <span class="target">>=80%</span>
+              <strong>Pass coach review</strong>
+              <p>Checklist đúng evidence, có action và citation.</p>
+            </div>
+            <div class="metric">
+              <span class="target">>=60%</span>
+              <strong>Mở checklist</strong>
+              <p>Adoption đủ để chứng minh kênh gửi có tác dụng.</p>
+            </div>
+            <div class="metric">
+              <span class="target">>=40%</span>
+              <strong>Tick 1 action</strong>
+              <p>Học viên thực hiện ít nhất một bước ôn tập.</p>
+            </div>
+          </div>
+          <div class="ask-box">
+            <h3>Lời xin</h3>
+            <ul>
+              <li>Approve pilot 3 tuần cho 30-80 học viên Track Product.</li>
+              <li>Cho phép dùng bài nộp D28, self-assessment và tài liệu khóa trong phạm vi privacy đã nêu.</li>
+              <li>Cấp 2 giờ coach review và quyền dừng nếu có lỗi privacy, citation hoặc quality nghiêm trọng.</li>
+            </ul>
+          </div>
+          <div class="grid-2">
+            <div class="card accent-amber">
+              <strong>Cảnh báo</strong>
+              <p>&lt;60% checklist pass review hoặc &gt;30% học viên nói không đúng điểm yếu: dừng mở rộng, sửa prompt/concept map.</p>
+            </div>
+            <div class="card accent-green">
+              <strong>Dừng ngay</strong>
+              <p>Rò rỉ dữ liệu nhạy cảm, citation sai hàng loạt, hoặc AI gán nhãn gây hiểu sai năng lực học viên.</p>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>Slide cuối trả lời: xin gì, hứa gì, đo gì, dừng khi nào.</span>
+          <span class="speaker">Người nói: Lê Quang Minh</span>
+        </footer>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="frame">
+        <header>
+          <div>
+            <p class="kicker">Q&A Prep</p>
+            <h2>3 câu phản biện đã chuẩn bị</h2>
+          </div>
+          <div class="slide-number">07</div>
+        </header>
+        <main>
+          <div class="qa">
+            <div class="card accent-blue">
+              <strong>Số liệu lấy ở đâu?</strong>
+              <p>Quy mô lấy từ context lab. Baseline, adoption, API cost là giả định kế hoạch; tuần 1 đo lại bằng survey, audit và log.</p>
+            </div>
+            <div class="card accent-teal">
+              <strong>Nếu giả định sai?</strong>
+              <p>Nếu adoption &lt;30% sau 7 ngày, không mở rộng; chuyển thành coach dashboard hoặc nhúng vào feedback D28.</p>
+            </div>
+            <div class="card accent-amber">
+              <strong>Khi nào dừng?</strong>
+              <p>Dừng ngay khi có lỗi privacy, citation sai hàng loạt, hoặc AI gán nhãn khiến học viên hiểu sai năng lực.</p>
+            </div>
+          </div>
+        </main>
+        <footer>
+          <span>AI Support Log: AI hỗ trợ nháp và phản biện; nhóm tự chốt Quick Win, scope, metric, exit criteria.</span>
+          <span class="speaker">Người nói: cả nhóm</span>
+        </footer>
+      </div>
+    </section>
+  </div>
+
+  <nav class="controls" aria-label="Điều hướng slide">
+    <button type="button" id="prev" title="Slide trước" aria-label="Slide trước">‹</button>
+    <span class="progress" id="progress">1 / 7</span>
+    <button type="button" id="next" title="Slide sau" aria-label="Slide sau">›</button>
+  </nav>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const progress = document.getElementById("progress");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    let current = 0;
+
+    function showSlide(index) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      progress.textContent = `${current + 1} / ${slides.length}`;
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+    }
+
+    prev.addEventListener("click", () => showSlide(current - 1));
+    next.addEventListener("click", () => showSlide(current + 1));
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+        event.preventDefault();
+        showSlide(current + 1);
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "PageUp") {
+        event.preventDefault();
+        showSlide(current - 1);
+      }
+
+      if (event.key === "Home") {
+        showSlide(0);
+      }
+
+      if (event.key === "End") {
+        showSlide(slides.length - 1);
+      }
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
