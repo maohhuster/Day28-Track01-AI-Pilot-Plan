@@ -2,7 +2,7 @@
 
 ## Thành viên
 
-- Nguyễn Đức Mạnh — 2A202600151 — phụ trách Phase 1: Frame + Phase 2: bản vẽ trực quan
+- Nguyễn Đức Mạnh — 2A202600151 — phụ trách Phase 1: Frame + Phase 2: bản vẽ trực quan + Presentation
 - Hoàng Quang Thắng — 2A202600069 — phụ trách Phase 2: Solution 
 - Lê Quang Minh — 2A202600381 — phụ trách Phase 3: AI Pilot Plan + pitch
 - Track: 01 — Personalized Learning Path / Lộ trình học cá nhân hóa
